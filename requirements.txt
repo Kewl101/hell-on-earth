@@ -15,6 +15,7 @@ gunicorn
 lk21
 lxml
 mega
+megasdkrestclient
 pillow
 psutil
 psycopg2-binary
