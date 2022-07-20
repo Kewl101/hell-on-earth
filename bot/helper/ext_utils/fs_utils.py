@@ -9,7 +9,12 @@ from time import time
 from math import ceil
 
 from .exceptions import NotSupportedExtractionArchive
-from bot import aria2, LOGGER, DOWNLOAD_DIR, get_client, TG_SPLIT_SIZE, EQUAL_SPLITS, STORAGE_THRESHOLD
+from bot import aria2, app, LOGGER, DOWNLOAD_DIR, get_client, TG_SPLIT_SIZE, EQUAL_SPLITS, IS_PREMIUM_USER
+
+if IS_PREMIUM_USER:
+    MAX_SPLIT_SIZE = 4194304000
+else:
+    MAX_SPLIT_SIZE = 2097152000
 
 VIDEO_SUFFIXES = ("M4V", "MP4", "MOV", "FLV", "WMV", "3GP", "MPG", "WEBM", "MKV", "AVI")
 
@@ -200,8 +205,8 @@ def split_file(path, size, file_, dirpath, split_size, start_time=0, i=1, inLoop
                             path, "-ss", str(start_time), "-fs", str(split_size),
                             "-async", "1", "-strict", "-2", "-c", "copy", out_path])
             out_size = get_path_size(out_path)
-            if out_size > 2097152000:
-                dif = out_size - 2097152000
+            if out_size > MAX_SPLIT_SIZE:
+                dif = out_size - MAX_SPLIT_SIZE
                 split_size = split_size - dif + 2500000
                 osremove(out_path)
                 return split_file(path, size, file_, dirpath, split_size, start_time, i, inLoop=True)
