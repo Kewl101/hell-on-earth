@@ -2,7 +2,7 @@ from random import SystemRandom
 from string import ascii_letters, digits
 from os import makedirs
 from threading import Event
-from mega import (MegaApi, MegaListener, MegaRequest, MegaTransfer, MegaError)
+from megasdkrestclient import (MegaApi, MegaListener, MegaRequest, MegaTransfer, MegaError)
 
 from bot import LOGGER, MEGA_API_KEY, download_dict_lock, download_dict, MEGA_EMAIL_ID, MEGA_PASSWORD, MEGA_LIMIT, STOP_DUPLICATE, ZIP_UNZIP_LIMIT, STORAGE_THRESHOLD
 from bot.helper.telegram_helper.message_utils import sendMessage, sendMarkup, sendStatusMessage
